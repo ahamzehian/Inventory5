@@ -95,7 +95,7 @@ public class MainController implements Initializable {
     private final String emptyImagePath = "C:\\Users\\amirh\\IdeaProjects\\Inventory5\\Photos\\noPhoto.png";
     private String imagePath = emptyImagePath;
 
-//    private XYChart.Series<String, Number> series1 = new XYChart.Series<>();
+    private XYChart.Series<String, Number> series1 = new XYChart.Series<>();
 
     private Map<String, XYChart.Series<String, Number>> seriesMap = new HashMap<>();
 
@@ -114,7 +114,7 @@ public class MainController implements Initializable {
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
 
         mainTable.setItems(mainObservableList);
-
+        
         for (String productName:dbManager.getProductNameList()) {
             initializeChart(productName);
         }
@@ -152,13 +152,13 @@ public class MainController implements Initializable {
     public void initializeChart(String productName) {
 
         barChart.getData().clear();
-        if (!seriesMap.containsKey(productName)) {
+//        if (!seriesMap.containsKey(productName)) {
 
             XYChart.Series<String, Number> series1 = new XYChart.Series<>();
             CategoryAxis xAxis = new CategoryAxis();
 
             List<String> dates = dbManager.getTransactionDate(productName);
-            List<Integer> qtys = Collections.singletonList(dbManager.getQty(productName));
+            List<Integer> qtys = dbManager.getTransactionQty(productName);
 
             xAxis.setLabel("date");
 
@@ -174,7 +174,7 @@ public class MainController implements Initializable {
 
             seriesMap.put(productName,series1);
 
-        }
+//        }
 
     }
 
