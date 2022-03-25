@@ -114,7 +114,7 @@ public class MainController implements Initializable {
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
 
         mainTable.setItems(mainObservableList);
-        
+
         for (String productName:dbManager.getProductNameList()) {
             initializeChart(productName);
         }
@@ -152,13 +152,12 @@ public class MainController implements Initializable {
     public void initializeChart(String productName) {
 
         barChart.getData().clear();
-//        if (!seriesMap.containsKey(productName)) {
 
             XYChart.Series<String, Number> series1 = new XYChart.Series<>();
             CategoryAxis xAxis = new CategoryAxis();
 
             List<String> dates = dbManager.getTransactionDate(productName);
-            List<Integer> qtys = dbManager.getTransactionQty(productName);
+            List<Integer> qtys = dbManager.getRemainderQty(productName);
 
             xAxis.setLabel("date");
 
@@ -173,8 +172,6 @@ public class MainController implements Initializable {
             }
 
             seriesMap.put(productName,series1);
-
-//        }
 
     }
 

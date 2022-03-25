@@ -292,6 +292,29 @@ public class DBManager {
         return result;
     }
 
+    // Return remainder quantity list. This is coming from product table
+    public List<Integer> getRemainderQty(String productName) {
+
+        List<Integer> result = new ArrayList<>();
+
+        try {
+
+            ResultSet resultSet = connection.createStatement().executeQuery(
+                    "SELECT " + REMAINDER_QTY_COLUMN + " FROM " + getTableName(productName)
+            );
+
+            while (resultSet.next()) {
+                result.add(resultSet.getInt(REMAINDER_QTY_COLUMN));
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Failed to get remainder qty list! " + e.getMessage());
+        }
+
+        return result;
+
+    }
+
     // Return transaction date of a given product in a list
     public List<String> getTransactionDate(String productName) {
         List<String> result = new ArrayList<>();
